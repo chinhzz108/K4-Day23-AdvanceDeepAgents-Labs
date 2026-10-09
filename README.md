@@ -4,6 +4,11 @@ Lab dựng một **hệ thống deep research đa tác tử**: người dùng ch
 
 Hình thức: **bài thực hành cá nhân**. Ngôn ngữ lập trình: Python 3.11 trở lên.
 
+## Thông tin người thực hiện
+
+- Họ tên: **Trần Trọng Chinh**
+- Mã học viên: **2A202602720**
+
 ## 1. Mục tiêu học tập
 
 Sau lab, bạn có thể:
