@@ -1,0 +1,42 @@
+[
+  {
+    "n": 1,
+    "id": "2306.11644",
+    "url": "https://arxiv.org/abs/2306.11644",
+    "title": "Textbooks Are All You Need",
+    "date": "2023-06-20",
+    "source": "arxiv"
+  },
+  {
+    "n": 2,
+    "id": "2306.00978",
+    "url": "https://huggingface.co/papers/2306.00978",
+    "title": "AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration",
+    "date": "2023-06-01",
+    "source": "hf-search"
+  },
+  {
+    "n": 3,
+    "id": "2211.17192",
+    "url": "https://arxiv.org/abs/2211.17192",
+    "title": "Fast Inference from Transformers via Speculative Decoding",
+    "date": "2022-11-30",
+    "source": "arxiv"
+  },
+  {
+    "n": 4,
+    "id": "2610.09941",
+    "url": "https://arxiv.org/abs/2610.09941",
+    "title": "Purifying Backdoored Large Vision-Language Models by Removing Hijacked Directions",
+    "date": "2026-10-07",
+    "source": "arxiv"
+  },
+  {
+    "n": 5,
+    "id": "efficient-inference-survey-web",
+    "url": "https://huggingface.co/blog/optimize-llm",
+    "title": "Optimizing LLMs for Speed and Memory",
+    "date": "2024-03-15",
+    "source": "web"
+  }
+]

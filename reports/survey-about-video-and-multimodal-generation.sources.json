@@ -1,0 +1,34 @@
+[
+  {
+    "n": 1,
+    "id": "2212.09748",
+    "url": "https://arxiv.org/abs/2212.09748",
+    "title": "Scalable Diffusion Models with Transformers",
+    "date": "2022-12-19",
+    "source": "arxiv"
+  },
+  {
+    "n": 2,
+    "id": "2402.17177",
+    "url": "https://huggingface.co/papers/2402.17177",
+    "title": "Sora: A Review on Background, Technology, Limitations, and Opportunities of Large Vision Models",
+    "date": "2024-02-27",
+    "source": "hf-search"
+  },
+  {
+    "n": 3,
+    "id": "2610.12417",
+    "url": "https://arxiv.org/abs/2610.12417",
+    "title": "WOVEN: Weaving Visual World Modeling into Multimodal LLMs",
+    "date": "2026-10-08",
+    "source": "arxiv"
+  },
+  {
+    "n": 4,
+    "id": "video-generation-survey-web",
+    "url": "https://lilianweng.github.io/posts/2024-04-12-diffusion-video/",
+    "title": "Diffusion Models for Video Generation",
+    "date": "2024-04-12",
+    "source": "web"
+  }
+]

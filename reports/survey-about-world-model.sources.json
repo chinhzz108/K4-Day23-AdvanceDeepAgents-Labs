@@ -1,0 +1,34 @@
+[
+  {
+    "n": 1,
+    "id": "1803.10122",
+    "url": "https://arxiv.org/abs/1803.10122",
+    "title": "World Models",
+    "date": "2018-05-09",
+    "source": "arxiv"
+  },
+  {
+    "n": 2,
+    "id": "10.1145/3746449",
+    "url": "https://dl.acm.org/doi/10.1145/3746449",
+    "title": "Understanding World or Predicting Future? A Comprehensive Survey of World Models",
+    "date": "2025-09-09",
+    "source": "web"
+  },
+  {
+    "n": 3,
+    "id": "2402.08268",
+    "url": "https://huggingface.co/papers/2402.08268",
+    "title": "World Model on Million-Length Video And Language With RingAttention",
+    "date": "2024-02-13",
+    "source": "hf-search"
+  },
+  {
+    "n": 4,
+    "id": "2610.12468",
+    "url": "https://arxiv.org/abs/2610.12468",
+    "title": "DreamTrue: Action-Faithful Robot World Model with Counterfactual Post-Training",
+    "date": "2026-10-08",
+    "source": "arxiv"
+  }
+]

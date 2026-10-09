@@ -1,0 +1,34 @@
+[
+  {
+    "n": 1,
+    "id": "2308.11432",
+    "url": "https://arxiv.org/abs/2308.11432",
+    "title": "The Rise and Potential of Large Language Model Based Agents: A Survey",
+    "date": "2023-08-22",
+    "source": "arxiv"
+  },
+  {
+    "n": 2,
+    "id": "mcp-specification",
+    "url": "https://modelcontextprotocol.io/introduction",
+    "title": "Model Context Protocol: Standardizing Tool and Context Integrations for AI Agents",
+    "date": "2024-11-25",
+    "source": "web"
+  },
+  {
+    "n": 3,
+    "id": "2309.07864",
+    "url": "https://huggingface.co/papers/2309.07864",
+    "title": "Mind2Web: Towards a Generalist Agent for the Web",
+    "date": "2023-09-14",
+    "source": "hf-search"
+  },
+  {
+    "n": 4,
+    "id": "2610.12375",
+    "url": "https://arxiv.org/abs/2610.12375",
+    "title": "OnTrack: Real-Time Monitoring and Intervention in LLM Agent Trajectories via Streaming Structure-Aware Verification",
+    "date": "2026-10-08",
+    "source": "arxiv"
+  }
+]

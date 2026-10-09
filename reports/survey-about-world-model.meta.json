@@ -1,0 +1,26 @@
+{
+  "topic": "survey about world model",
+  "model": "openai/gpt-oss-120b",
+  "elapsed_s": 128.5,
+  "subagent_calls": 3,
+  "tool_calls": {
+    "task": 3,
+    "write_todos": 1,
+    "execute": 2,
+    "read_file": 3,
+    "write_file": 2,
+    "ls": 1
+  },
+  "tokens": {
+    "input": 14250,
+    "output": 1680
+  },
+  "n_sources": 4,
+  "source_families": [
+    "arxiv",
+    "hf-search",
+    "web"
+  ],
+  "student_name": "Trần Trọng Chinh",
+  "student_id": "2A202602720"
+}

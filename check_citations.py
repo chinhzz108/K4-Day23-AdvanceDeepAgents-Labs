@@ -122,8 +122,8 @@ def check(report_text, sources):
 
 
 def main(argv):
-    report_path = argv[1] if len(argv) > 1 else REPORT
-    sources_path = argv[2] if len(argv) > 2 else SOURCES
+    report_path = argv[0] if len(argv) > 0 else REPORT
+    sources_path = argv[1] if len(argv) > 1 else SOURCES
     try:
         with open(report_path, encoding="utf-8") as handle:
             report = handle.read()

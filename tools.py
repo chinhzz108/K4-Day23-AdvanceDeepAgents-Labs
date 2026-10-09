@@ -134,7 +134,7 @@ def _wait_for_arxiv_slot() -> None:
 
 
 @tool
-def arxiv_search(query: str, max_results: int = 3) -> str:
+def arxiv_search(query: str, max_results: int = 1) -> str:
     """Search arXiv papers by keywords, newest first; returns JSON records with id, URL, date, title, and summary."""
     terms = _arxiv_terms(query)
     if not terms:
@@ -181,7 +181,7 @@ def arxiv_search(query: str, max_results: int = 3) -> str:
                     "title": _clean_text(entry.findtext(f"{_ARXIV_NAMESPACE}title")),
                     "summary": _clean_text(
                         entry.findtext(f"{_ARXIV_NAMESPACE}summary")
-                    )[:600],
+                    )[:220],
                 }
             )
         return json.dumps(records, ensure_ascii=False) if records else "NO RESULTS"
@@ -231,7 +231,7 @@ def _hf_record(item, *, prefer_ai_summary=False) -> dict | None:
             paper.get("publishedAt") or item.get("publishedAt") or ""
         )[:10],
         "title": title,
-        "summary": summary[:600],
+        "summary": summary[:220],
         "upvotes": upvotes,
         "github": paper.get("githubRepo") or item.get("githubRepo") or "",
         "stars": stars,
@@ -239,7 +239,7 @@ def _hf_record(item, *, prefer_ai_summary=False) -> dict | None:
 
 
 @tool
-def hf_daily_papers(limit: int = 5, date: str = "", keyword: str = "") -> str:
+def hf_daily_papers(limit: int = 1, date: str = "", keyword: str = "") -> str:
     """Return trending Hugging Face Daily Papers, optionally filtered by date and title/summary keyword."""
     try:
         params = {"limit": _clamp_int(limit, 1, 100)}
@@ -263,7 +263,7 @@ def hf_daily_papers(limit: int = 5, date: str = "", keyword: str = "") -> str:
 
 
 @tool
-def hf_search_papers(query: str, limit: int = 3) -> str:
+def hf_search_papers(query: str, limit: int = 1) -> str:
     """Search Hugging Face Papers by topic; returns paper metadata, summaries, votes, and repository links."""
     if not _clean_text(query):
         return "NO RESULTS"
@@ -407,7 +407,7 @@ def _exa_error(exc: Exception) -> str:
 
 
 @tool
-def web_search(query: str, objective: str = "", num_results: int = 2) -> str:
+def web_search(query: str, objective: str = "", num_results: int = 1) -> str:
     """Search the web through Exa and return result text with URLs; describe the desired sources in natural language."""
     query = _clean_text(query)
     if not query:
@@ -428,14 +428,14 @@ def web_search(query: str, objective: str = "", num_results: int = 2) -> str:
             raise RuntimeError("Exa returned a rate-limit message after retries")
         if not text or re.search(r"\bno results? found\b", text, re.I):
             return "NO RESULTS"
-        return text
+        return text[:1200]
     except Exception as exc:
         return _exa_error(exc)
 
 
 @tool
 def web_fetch(url: str) -> str:
-    """Fetch one HTTP(S) page through Exa as readable text; long results are truncated to about 6,000 characters."""
+    """Fetch one HTTP(S) page through Exa as readable text; long results are truncated to about 3,000 characters."""
     url = str(url or "").strip()
     if not re.match(r"^https?://", url, flags=re.I):
         return "NO RESULTS" if not url else "ERROR: ValueError: url must start with http:// or https://"
@@ -446,20 +446,55 @@ def web_fetch(url: str) -> str:
             raise RuntimeError("Exa returned a rate-limit message after retries")
         if not text or re.search(r"\bno results? found\b", text, re.I):
             return "NO RESULTS"
-        return text[:6000]
+        return text[:3000]
     except Exception as exc:
         return _exa_error(exc)
 
 
+@tool
+def search_source_pair(
+    query: str, source_a: str, source_b: str, objective: str = ""
+) -> str:
+    """Search two source families in one call and return each result with its source label."""
+    query = _clean_text(query)
+    labels = [str(source_a or "").strip().lower(), str(source_b or "").strip().lower()]
+    allowed = {"arxiv", "hf-daily", "hf-search", "web"}
+    if not query:
+        return "NO RESULTS"
+    if labels[0] == labels[1] or any(label not in allowed for label in labels):
+        return "ERROR: choose two different supported source labels"
+
+    def search(label):
+        if label == "arxiv":
+            return arxiv_search.invoke({"query": query, "max_results": 1})
+        if label == "hf-daily":
+            return hf_daily_papers.invoke({"limit": 1, "keyword": query})
+        if label == "hf-search":
+            return hf_search_papers.invoke({"query": query, "limit": 1})
+        return web_search.invoke(
+            {"query": query, "objective": objective, "num_results": 1}
+        )
+
+    results = []
+    for label in labels:
+        try:
+            result = search(label)
+        except Exception as exc:
+            result = _error_text(exc, secret=(os.getenv("EXA_API_KEY") or ""))
+        results.append({"source": label, "result": str(result)[:1600]})
+    return json.dumps(results, ensure_ascii=False)
+
+
 SOURCE_TOOLS = [arxiv_search, hf_daily_papers, hf_search_papers, web_search, web_fetch]
+RESEARCH_TOOLS = [search_source_pair, web_fetch]
 
 
 if __name__ == "__main__":
     for name, fn, args in [
-        ("arxiv_search", arxiv_search, {"query": "world model", "max_results": 3}),
-        ("hf_daily_papers", hf_daily_papers, {"limit": 20}),
-        ("hf_search_papers", hf_search_papers, {"query": "world model", "limit": 3}),
-        ("web_search", web_search, {"query": "survey paper on world models", "num_results": 2}),
+        ("arxiv_search", arxiv_search, {"query": "world model", "max_results": 1}),
+        ("hf_daily_papers", hf_daily_papers, {"limit": 1}),
+        ("hf_search_papers", hf_search_papers, {"query": "world model", "limit": 1}),
+        ("web_search", web_search, {"query": "survey paper on world models", "num_results": 1}),
         ("web_fetch", web_fetch, {"url": "https://arxiv.org/abs/1803.10122"}),
     ]:
         print(f"== {name}\n{fn.invoke(args)[:400]}\n")
